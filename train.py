@@ -15,6 +15,21 @@ from utils.helper import (
 )
 
 
+def set_random_seed(seed: int) -> None:
+    import os, random
+    import numpy as np
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+ 
+seed = 2077
+set_random_seed(seed)
+
+
 def train(config):
     os.makedirs(config["model_dir"], exist_ok=True)
     
